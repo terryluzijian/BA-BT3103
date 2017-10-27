@@ -1,0 +1,86 @@
+@font-face {
+    font-family: "Cera";
+    src: url("../font/Cera-Bold.ttf") format('truetype');
+    font-weight: bold;
+
+}
+
+@font-face {
+    font-family: "Cera";
+    src: url("../font/Cera-Light.ttf") format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Cera";
+    src: url("../font/Cera-Thin.ttf") format('truetype');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "Cera";
+    src: url("../font/Cera-Medium.ttf") format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Cera";
+    src: url("../font/Cera-Regular.ttf") format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("../font/OpenSans-Regular.ttf") format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto-Medium.ttf") format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto-Regular.ttf") format('truetype');
+    font-weight: normal;
+}
+
+
+h1 {
+    font-family: "Cera";
+    font-weight: bold;
+    font-size: 3em;
+}
+
+h2 {
+    font-family: "Cera";
+    font-weight: 100;
+    font-size: 2em;
+}
+
+h3 {
+    font-family: "Cera";
+    font-weight: normal;
+    font-size: 1.5em;
+    color: #6CA6BE;
+}
+
+p {
+    font-family: "Cera";
+    font-weight: 100;
+    font-size: 1em;
+    color: #2A6163;
+}
+
+a {
+    font-family: "Roboto";
+    font-weight: normal;
+    font-size: 1.1em;
+}
+
+footer * {
+    font-family: "Open Sans";
+    font-weight: normal;
+}
