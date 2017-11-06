@@ -1,18 +1,48 @@
 # Third-party Application Programming Interfaces (APIs)
-
 This page compiles the APIs used by the application, mainly public transport availability such as taxi, bus and bike in Singapore. Following examples are illustrated using <code>Python</code> code snippets.
 
-- [Public Bus and Taxi API](README.md#public-bus-and-taxi-api)
-- [Bike APIs](README.md#bike-apis)
-- [NUS School Shuttle Bus API](README.md#nus-school-shuttle-bus-api)
-- [Google Map API](README.md#google-map-api)
+- [Public Bus and Taxi API](https://github.com/terryluzijian/BA-BT3103/tree/master/api#public-bus-and-taxi-api)
+- [Bike APIs](https://github.com/terryluzijian/BA-BT3103/tree/master/api#bike-apis)
+- [NUS School Shuttle Bus API](https://github.com/terryluzijian/BA-BT3103/tree/master/api#nus-school-shuttle-bus-api)
+- [Google Map API](https://github.com/terryluzijian/BA-BT3103/tree/master/api#google-map-api)
 
 ## Public Bus and Taxi API
 
 ### Datamall
 Refer to the **[pdf document](http://mytransport.sg/content/dam/mytransport/DataMall_StaticData/LTA_DataMall_API_User_Guide.pdf)** on how to fetch public transport data from MyTransport. Information is provided by Land Transport Authority (LTA).
 
-**API Key:** *8LOiGaQeTXO97oC7KkSYHA==*
+### Bus
+Public bus arrival time and bus stop codes can be accessed through the following *GET* request with access key and two bus-related parameters:
+
+```python
+import requests
+
+headers = {
+   'AccountKey' : '8LOiGaQeTXO97oC7KkSYHA==' # API access key here
+}
+payload = {
+    'BusStopCode': 83139,
+    'ServiceNo': 15
+}
+# Arrival time
+bus_response = requests.get('http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2', 
+                            headers=headers, params=payload)
+# Bus stop
+bus_stop_response = requests.get('http://datamall2.mytransport.sg/ltaodataservice/BusStops', headers=headers)
+```
+
+### Taxi
+Taxi avilability is fetched through *GET* request but only top 500 records will be returned. An extra <code>skip</code> parameter can be passed to retrieve next 500 records. An example would be:
+
+```python
+import requests
+
+headers = {
+   'AccountKey' : '8LOiGaQeTXO97oC7KkSYHA=='
+}
+taxi_response = requests.get('http://datamall2.mytransport.sg/ltaodataservice/Taxi-Availability', 
+                             headers=headers, params={'skip': 0})
+```
 
 ## Bike APIs
 
@@ -77,7 +107,6 @@ response = session.post("https://one.ofo.com/nearbyofoCar", data=payload)
 ```
 
 ## NUS School Shuttle Bus API
-
 NUS School Shuttle Bus API can be called by simply executing a *GET* request. One can either fecth a list of available bus stops or the Estimated Time of Arrival (ETA) of shuttle buses for a particular station with parameters passed:
 
 ```python
@@ -90,7 +119,6 @@ arrival_time = requests.get('https://nextbus.comfortdelgro.com.sg/eventservice.s
 ```
 
 ## Google Map API
-
 Google Map API can be useful sometimes to calculate metrics such as distance and ETA.
 
 **API Key:** *AIzaSyC0BWtfMs9N_hOKzWmwJNnhlfkwrGyYu1U*
