@@ -2,8 +2,10 @@
 
 This page compiles the APIs used by the application, mainly public transport availability such as taxi, bus and bike in Singapore. Following examples are illustrated using <code>Python</code> code snippets.
 
-- [Public Bus and Taxi API](README.md)
-
+- [Public Bus and Taxi API](README.md#public-bus-and-taxi-api)
+- [Bike APIs](README.md#bike-apis)
+- [NUS School Shuttle Bus API](README.md#nus-school-shuttle-bus-api)
+- [Google Map API](README.md#google-map-api)
 
 ## Public Bus and Taxi API
 
@@ -45,7 +47,7 @@ bike_mobike = requests.request("POST", "https://mwx.mobike.com/mobike-api/rent/n
 The API response seems to spatially cover a fairly small range.
 
 ### Ofo
-For Ofo, a much more header content with more detailed parameters should be passed to the call using 'POST' request. One should create a session to fetch the response:
+For Ofo, a much more header content with more detailed parameters should be passed to the call using *POST* request. One should create a session to fetch the response:
 
 ```python
 import requests
@@ -76,8 +78,19 @@ response = session.post("https://one.ofo.com/nearbyofoCar", data=payload)
 
 ## NUS School Shuttle Bus API
 
+NUS School Shuttle Bus API can be called by simply executing a *GET* request. One can either fecth a list of available bus stops or the Estimated Time of Arrival (ETA) of shuttle buses for a particular station with parameters passed:
+
+```python
+import requests
+bus_stops = requests.get('https://nextbus.comfortdelgro.com.sg/eventservice.svc/BusStops')
+payload = {
+    'busstopname': 'PGP'
+}
+arrival_time = requests.get('https://nextbus.comfortdelgro.com.sg/eventservice.svc/Shuttleservice', params=payload)
+```
+
 ## Google Map API
 
-Google Map API can be useful sometimes to calculate metrics such as distance and Estimated Time of Arrival (ETA).
+Google Map API can be useful sometimes to calculate metrics such as distance and ETA.
 
 **API Key:** *AIzaSyC0BWtfMs9N_hOKzWmwJNnhlfkwrGyYu1U*
