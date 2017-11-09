@@ -41,7 +41,7 @@ headers = {
    'AccountKey' : '8LOiGaQeTXO97oC7KkSYHA=='
 }
 taxi_response = requests.get('http://datamall2.mytransport.sg/ltaodataservice/Taxi-Availability', 
-                             headers=headers, params={'skip': 0})
+                             headers=headers, params={'$skip': 0})
 ```
 
 ## Bike APIs
