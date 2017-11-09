@@ -54,10 +54,14 @@ h1 {
     font-size: 3em;
 }
 
+h1.box-head {
+    font-size: 2.5em;
+}
+
 h2 {
     font-family: "Cera";
-    font-weight: 100;
-    font-size: 2em;
+    font-weight: 300;
+    font-size: 1.9em;
 }
 
 h3 {
@@ -69,18 +73,89 @@ h3 {
 
 p {
     font-family: "Cera";
-    font-weight: 100;
+    font-weight: 300;
     font-size: 1em;
     color: #2A6163;
 }
 
+p.hide-it {
+    margin-bottom: 5px;
+}
+
 a {
     font-family: "Roboto";
-    font-weight: normal;
-    font-size: 1.1em;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.TextInput a {
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+input.input-button {
+    width: 130px;
+    font-size: 1em;
+    font-weight: 500;
 }
 
 footer * {
     font-family: "Open Sans";
     font-weight: normal;
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+    h1.box-head {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1em;
+    }
+    p {
+        font-size: 0.8em;
+    }
+    a {
+        font-size: 0.8em;
+    }
+    .TextInput a {
+        font-size: 0.8em;
+    }
+    input.input-button {
+        font-size: 0.8em;
+        width: 90px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    h1.box-head {
+        font-size: 2.25em;
+    }
+    h2 {
+        font-size: 1.75em;
+    }
+    h3 {
+        font-size: 1.25em;
+    }
+    p {
+        font-size: 0.9em;
+    }
+    a {
+        font-size: 0.9em;
+    }
+    .TextInput a {
+        font-size: 0.9em;
+    }
+    input.input-button {
+        font-size: 0.9em;
+        width: 100px;
+    }
 }

@@ -64,7 +64,7 @@ span.navbar-toggler-icon {
     background-image: url("../img/Menu.png");
     height: 41px;
     width: 41px;
-    margin-top: 10px;
+    margin-top: 9.5px;
 }
 
 a.nav-link {
@@ -110,7 +110,8 @@ div.container.card-ele.front.register {
     background-position: center 0;
     background-repeat: no-repeat;
     background-size: 1322px 1418px;
-    padding: 10% 30% 0 30%;
+    text-align: center;
+    padding-top: 110px;
 }
 
 div.top-card {
@@ -149,14 +150,14 @@ img.upper-globe, img.lower-globe{
     background-attachment: fixed;
     background-position: center -650px;
     background-repeat: no-repeat;
-    background-size: 1980px 2446px;
+    background-size: 1980px auto;
     box-shadow: inset 0 11px 8px -10px #333333, inset 0 -11px 8px -10px #333333;
     height: 40em;
 }
 
 footer {
     text-align: center;
-    padding: 3%;
+    padding: 50px 3% 50px 3%;
     background-color: #E8E8E8;
 }
 
@@ -164,19 +165,31 @@ section.form-wrap {
     background: #FFFFFF;
     position: relative;
     box-shadow: 0 4px 20px 0 #616161;
-    padding: 7%;
+    padding: 40px 35px 35px 35px;
     text-align: left;
+    width: 90%;
+    display: inline-block;
 }
 
 input {
     border: 1px solid #BDBDBD;
     border-radius: 4px;
-    padding: 10px 0;
+    padding: 10px 10px 10px 12px;
     width: 100%;
+}
+
+input.input-button {
+    font-family: Roboto;
+    color: #FFFFFF;
+    border-radius: 17px;
 }
 
 .TextInput {
     padding-bottom: 2%;
+}
+
+div.col {
+    bottom: 100px
 }
 
 @media (max-width: 576px) {
@@ -186,5 +199,54 @@ input {
 
     .hide-it {
         display: none;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    div.feature h3 {
+        margin: 0;
+    }
+
+    div.col {
+        margin-top: 40px;
+    }
+}
+
+div.link-group {
+    position: relative;
+    height: 30px;
+    text-align: center;
+}
+
+i.material-icons {
+    font-size: 19px;
+    top: 4px;
+    left: 2px;
+    position: relative;
+}
+
+@media (min-width: 600px) {
+    section.form-wrap {
+        width: 500px;
+    }
+}
+
+@media (min-width: 1500px) {
+    div.col {
+        bottom: 130px;
+    }
+}
+
+@media (min-width: 2100px) {
+    div.col {
+        bottom: 190px;
+    }
+}
+
+@media (min-width: 3200px) {
+    div.col {
+        bottom: 250px;
     }
 }

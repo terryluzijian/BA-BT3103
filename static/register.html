@@ -1,6 +1,5 @@
 <!doctype html>
-
-<!-- Hompage for NUS Mobility Application-->
+<!-- Sign up for NUS Mobility Application-->
 <html>
 
 <head>
@@ -83,8 +82,8 @@
                     </svg>
                 </li>
                 <li class="nav-item sign-in">
-                    <button class="sign-in-button">
-                        <a class="nav-link" href="#" style="padding: 5px 16px">Sign in</a>
+                    <button class="sign-in-button" style="background-color: #FFFFFF">
+                        <a class="nav-link" href="./signin.html" style="padding: 5px 16px; color: #2B667F">Sign in</a>
                     </button>
                 </li>
             </ul>
@@ -121,36 +120,37 @@
             <div class="container card-ele front register">
 
                 <section class="form-wrap">
-                    <h1 style="color: #2B667F; padding-bottom: 3%; font-size: 2.5em">Sign Up</h1>
+                    <h1 class="box-head" style="color: #2B667F; padding-bottom: 3%">Sign Up</h1>
                     <form id="registrationForm">
                         <div class="TextInput">
                             <div style="padding-bottom: 5px">
-                                <a style="font-size: 0.9em">Name</a>
+                                <a>Name</a>
                             </div>
                             <input type="name" id="nameInputRegister" pattern=".*" required>
                         </div>
                         <div class="TextInput">
                             <div style="padding-bottom: 5px">
-                                <a style="font-size: 0.9em">Email Address</a>
+                                <a>Email Address</a>
                             </div>
                             <input type="email" id="emailInputRegister" pattern=".*" required>
                         </div>
-                        <div class="TextInput">
+                        <div class="TextInput" style="padding-bottom: 0">
                             <div style="padding-bottom: 5px">
-                                <a style="font-size: 0.9em">Password</a>
+                                <a style>Password</a>
                             </div>
                             <input type="password" id="passwordInputRegister" pattern=".*" required>
+                            <p style="font-size: 0.8em; font-family: Roboto; color: #BDBDBD; margin-top: 8px">Password must contain at least 8 characters, with one uppercase letter and one special character. </p>
                         </div>
                         <div  class="TextInput">
                             <div style="padding-bottom: 5px">
-                                <a style="font-size: 0.9em">Confirm Password</a>
+                                <a>Confirm Password</a>
                             </div>
                             <input type="password" id="password2InputRegister" pattern=".*" required>
                         </div>
                         <div>
-                            <div style="text-align: left; padding-top: 3%">
-                                <input id="go-back" type="button" onclick="location.href='./index.html'" value="Back" style="width: 25%; background: #6CA6BE;border-radius: 17px;font-family: Roboto;font-size: 0.9em;color: #FFFFFF;">
-                                <input type="submit" value="Sign up" style="float: right; position: relative; width: 25%; background: #337895;border-radius: 17px;font-family: Roboto;font-size: 0.9em;color: #FFFFFF;">
+                            <div style="text-align: left; padding-top: 15px">
+                                <input class="input-button" id="go-back" type="button" onclick="location.href='./signin.html'" value="Back" style="background: #6CA6BE;">
+                                <input class="input-button" type="submit" value="Sign up" style="float: right; position: relative; background: #337895;">
                             </div>
                         </div>
                     </form>
