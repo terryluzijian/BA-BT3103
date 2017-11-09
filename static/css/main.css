@@ -150,7 +150,7 @@ img.upper-globe, img.lower-globe{
     background-attachment: fixed;
     background-position: center -650px;
     background-repeat: no-repeat;
-    background-size: 1980px auto;
+    background-size: 1980px 2445px;
     box-shadow: inset 0 11px 8px -10px #333333, inset 0 -11px 8px -10px #333333;
     height: 40em;
 }
