@@ -32,7 +32,7 @@ bus_stop_response = requests.get('http://datamall2.mytransport.sg/ltaodataservic
 ```
 
 ### Taxi
-Taxi avilability is fetched through *GET* request but only top 500 records will be returned. An extra <code>skip</code> parameter can be passed to retrieve next 500 records. An example would be:
+Taxi avilability is fetched through *GET* request but only top 500 records will be returned. An extra <code>$skip</code> parameter can be passed to retrieve next 500 records. An example would be:
 
 ```python
 import requests
