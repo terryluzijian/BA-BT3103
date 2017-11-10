@@ -6,7 +6,7 @@ class TaxiAPI(BasicAPI):
 
     type_name = 'taxi'
 
-    def __init__(self, user_lat, user_lon, search_distance=BasicAPI.proximity_threshold * 4):
+    def __init__(self, user_lat, user_lon, search_distance=BasicAPI.proximity_threshold * 3):
         super(TaxiAPI, self).__init__(user_lat, user_lon, search_distance)
         self.raw_result = []
         self.get_taxi_response()
@@ -19,7 +19,7 @@ class TaxiAPI(BasicAPI):
                 'dist': self.get_distance((self.user_lat, self.user_lon),
                                           (taxi_dict['Latitude'], taxi_dict['Longitude'])),
                 'code': taxi_index,
-                'brand': 'public',
+                'brand': 'Public',
                 'type': 'taxi'
             }
             for taxi_dict, taxi_index in zip(self.raw_result, range(len(self.raw_result)))

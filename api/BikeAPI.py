@@ -13,7 +13,7 @@ class BikeAPI(BasicAPI):
         self.get_ofo_response()
 
     def get_bike_result(self):
-        bike_result = self.get_concat_result(['mobike', 'obike', 'ofo'],
+        bike_result = self.get_concat_result(['Mobike', 'Obike', 'Ofo'],
                                              [self.get_mobike_data, self.get_obike_data, self.get_ofo_data], 'bike')
         bike_result['bike'] = sorted(filter(lambda bike_dict: bike_dict['dist'] <= self.search_distance,
                                             bike_result['bike']),
@@ -26,7 +26,7 @@ class BikeAPI(BasicAPI):
             'longitude': self.user_lon
         }
         bike_obike = requests.get("https://mobile.o.bike/api/v1/bike/list", params=payload)
-        self.raw_response['obike'] = bike_obike
+        self.raw_response['Obike'] = bike_obike
 
     def get_mobike_response(self):
         headers = {
@@ -38,7 +38,7 @@ class BikeAPI(BasicAPI):
         }
         bike_mobike = requests.request("POST", "https://mwx.mobike.com/mobike-api/rent/nearbyBikesInfo.do",
                                        headers=headers, params=payload)
-        self.raw_response['mobike'] = bike_mobike
+        self.raw_response['Mobike'] = bike_mobike
 
     def get_ofo_response(self):
         headers = {
@@ -64,7 +64,7 @@ class BikeAPI(BasicAPI):
         session = requests.Session()
         session.headers.update(headers)
         response = session.post("https://one.ofo.com/nearbyofoCar", data=payload)
-        self.raw_response['ofo'] = response
+        self.raw_response['Ofo'] = response
 
     def get_obike_data(self, bike_response):
         if bike_response.status_code == 404:
@@ -72,7 +72,7 @@ class BikeAPI(BasicAPI):
                 'bike': [
                     {
                         'success': False,
-                        'brand': 'obike'
+                        'brand': 'Obike'
                     }
                 ]
             }
@@ -86,7 +86,7 @@ class BikeAPI(BasicAPI):
                         'dist': self.get_distance((self.user_lat, self.user_lon),
                                                   (bike_dict['latitude'], bike_dict['longitude'])),
                         'code': bike_dict['id'],
-                        'brand': 'obike',
+                        'brand': 'Obike',
                         'type': 'bike'
                     }
                     for bike_dict in bike_obike['data']['list']],
@@ -97,7 +97,7 @@ class BikeAPI(BasicAPI):
                 'bike': [
                     {
                         'success': False,
-                        'brand': 'obike'
+                        'brand': 'Obike'
                     }
                 ]
             }
@@ -108,7 +108,7 @@ class BikeAPI(BasicAPI):
                 'bike': [
                     {
                         'success': False,
-                        'brand': 'mobike'
+                        'brand': 'Mobike'
                     }
                 ]
             }
@@ -122,7 +122,7 @@ class BikeAPI(BasicAPI):
                         'dist': self.get_distance((self.user_lat, self.user_lon),
                                                   (bike_dict['distY'], bike_dict['distX'])),
                         'code': bike_dict['bikeIds'],
-                        'brand': 'mobike',
+                        'brand': 'Mobike',
                         'type': 'bike'
                     }
                     for bike_dict in bike_mobike['object']],
@@ -133,7 +133,7 @@ class BikeAPI(BasicAPI):
                 'bike': [
                     {
                         'success': False,
-                        'brand': 'mobike'
+                        'brand': 'Mobike'
                     }
                 ]
             }
@@ -144,7 +144,7 @@ class BikeAPI(BasicAPI):
                 'bike': [
                     {
                         'success': False,
-                        'brand': 'ofo'
+                        'brand': 'Ofo'
                     }
                 ]
             }
@@ -158,7 +158,7 @@ class BikeAPI(BasicAPI):
                         'lon': bike_dict['lng'],
                         'dist': self.get_distance((self.user_lat, self.user_lon), (bike_dict['lat'], bike_dict['lng'])),
                         'code': bike_index,
-                        'brand': 'ofo',
+                        'brand': 'Ofo',
                         'type': 'bike'
                     }
                     for bike_dict, bike_index in zip(data, range(len(data)))],
@@ -169,7 +169,7 @@ class BikeAPI(BasicAPI):
                 'bike': [
                     {
                         'success': False,
-                        'brand': 'ofo'
+                        'brand': 'Ofo'
                     }
                 ]
             }
