@@ -1,5 +1,5 @@
 import requests
-from api import BasicAPI
+from api.BasicAPI import BasicAPI
 
 
 class BikeAPI(BasicAPI):

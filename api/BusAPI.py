@@ -1,7 +1,7 @@
 import datetime
 import json
 import requests
-from api import BasicAPI
+from api.BasicAPI import BasicAPI
 
 
 class BusAPI(BasicAPI):
@@ -31,7 +31,7 @@ class BusAPI(BasicAPI):
 
     def get_stops_nearby(self):
         if len(self.bus_stops) > 0:
-            public_bus_stops = json.load(open('PUBLIC_BUS_STOPS.json', 'r'))
+            public_bus_stops = json.load(open('data/PUBLIC_BUS_STOPS.json', 'r'))
             self.bus_stops.extend([{
                 'lat': bus_dict['Latitude'],
                 'lon': bus_dict['Longitude'],
