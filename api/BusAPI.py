@@ -1,32 +1,65 @@
 import datetime
 import json
 import requests
-from api.BasicAPI import BasicAPI
+from BasicAPI import BasicAPI
 
 
 class BusAPI(BasicAPI):
 
     type_name = 'bus'
+    public_shuttle_station = json.load(open('data/PUBLIC_SHUTTLE_CROSS.json', 'r'))
+    public_shuttle_station_dict = {key: value for sub_dict in public_shuttle_station for key, value in sub_dict.items()}
 
-    def __init__(self, user_lat, user_lon):
-        super(BusAPI, self).__init__(user_lat, user_lon)
+    def __init__(self, user_lat, user_lon, search_distance=BasicAPI.proximity_threshold):
+        super(BusAPI, self).__init__(user_lat, user_lon, search_distance)
         self.bus_stops = []
         self.bus_stops_nearby = []
         self.get_shuttle_bus_stops()
         self.get_stops_nearby()
 
     def get_bus_result(self):
+        raw_result = self.get_bus_result_raw()[self.type_name]
+        name_dict = {}
+        result_list = []
+        for bus_stop_dict in raw_result:
+            name = bus_stop_dict['name']
+            if name not in name_dict.keys():
+                name_dict[name] = bus_stop_dict
+                result_list.append(bus_stop_dict)
+            else:
+                same_bus_stop_dict = name_dict[name]
+                del result_list[result_list.index(same_bus_stop_dict)]
+                pair = sorted((bus_stop_dict, same_bus_stop_dict), key=lambda bus_dict: bus_dict['type'])
+                result_list.append({
+                    'lat': pair[0]['lat'],
+                    'lon': pair[0]['lon'],
+                    'name': pair[0]['name'],
+                    'code': '%s/%s' % (pair[0]['code'], pair[1]['code']),
+                    'type': '%s/%s' % (pair[0]['type'], pair[1]['type']),
+                    'brand': '%s/%s' % (pair[0]['brand'], pair[1]['brand']),
+                    'dist': pair[0]['dist'],
+                    'arrival': [pair[0]['arrival'][0], pair[1]['arrival'][0]]
+                })
+        return {
+            self.type_name: result_list
+        }
+
+    def get_bus_result_raw(self):
         return {self.type_name: [
             {
                 'lat': bus_dict['lat'],
                 'lon': bus_dict['lon'],
-                'name': bus_dict['name'],
+                'name': bus_dict['name']
+                if bus_dict['name'] not in self.public_shuttle_station_dict.keys()
+                else self.public_shuttle_station_dict[bus_dict['name']][0],
                 'code': bus_dict['code'],
                 'type': bus_dict['type'],
                 'brand': bus_dict['brand'],
                 'dist': bus_dict['dist'],
-                'arrival': self.get_shuttle_bus_data(bus_dict['code'])
-                if bus_dict['type'] == 'shuttle bus' else self.get_public_bus_data(bus_dict['code'])
+                'arrival': [{
+                    bus_dict['type']: self.get_shuttle_bus_data(bus_dict['code']) if bus_dict['type'] == 'shuttle bus'
+                    else self.get_public_bus_data(bus_dict['code'])
+                }]
             } for bus_dict in self.bus_stops_nearby]}
 
     def get_stops_nearby(self):
@@ -94,14 +127,17 @@ class BusAPI(BasicAPI):
     @staticmethod
     def get_public_bus_data(station_code):
         def get_approximate_mins(time_stamp):
-            diff = ((datetime.datetime.strptime(time_stamp, '%Y-%m-%dT%H:%M:%S+08:00'))
-                    - datetime.datetime.now()).total_seconds() / 60
-            if diff >= 1:
-                return '%d' % int(diff)
-            elif diff < 0:
+            try:
+                diff = ((datetime.datetime.strptime(time_stamp, '%Y-%m-%dT%H:%M:%S+08:00'))
+                        - datetime.datetime.now()).total_seconds() / 60
+                if diff >= 1:
+                    return '%d' % int(diff)
+                elif diff < 0:
+                    return '-'
+                else:
+                    return 'Arr'
+            except ValueError:
                 return '-'
-            else:
-                return 'Arr'
 
         headers = {
             'AccountKey': '8LOiGaQeTXO97oC7KkSYHA=='

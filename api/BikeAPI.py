@@ -1,13 +1,13 @@
 import requests
-from api.BasicAPI import BasicAPI
+from BasicAPI import BasicAPI
 
 
 class BikeAPI(BasicAPI):
 
     type_name = 'bike'
 
-    def __init__(self, user_lat, user_lon):
-        super(BikeAPI, self).__init__(user_lat, user_lon)
+    def __init__(self, user_lat, user_lon, search_distance=BasicAPI.proximity_threshold):
+        super(BikeAPI, self).__init__(user_lat, user_lon, search_distance)
         self.get_obike_response()
         self.get_mobike_response()
         self.get_ofo_response()
