@@ -1,16 +1,17 @@
+import json
 import math
 
 
 class BasicAPI(object):
 
     proximity_threshold = 0.3  # 300m
+    api_key = {key: value for sub_dict in json.load(open('data/API_KEY.json', 'r')) for key, value in sub_dict.items()}
 
     def __init__(self, user_lat, user_lon, search_distance=proximity_threshold):
         self.user_lat = user_lat
         self.user_lon = user_lon
         self.raw_response = {}
-        if search_distance != BasicAPI.proximity_threshold:
-            BasicAPI.proximity_threshold = search_distance
+        self.search_distance = search_distance
 
     def get_concat_result(self, keys, functions, type_name):
         raw_concat = []

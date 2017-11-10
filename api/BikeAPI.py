@@ -15,6 +15,9 @@ class BikeAPI(BasicAPI):
     def get_bike_result(self):
         bike_result = self.get_concat_result(['mobike', 'obike', 'ofo'],
                                              [self.get_mobike_data, self.get_obike_data, self.get_ofo_data], 'bike')
+        bike_result['bike'] = sorted(filter(lambda bike_dict: bike_dict['dist'] <= self.search_distance,
+                                            bike_result['bike']),
+                                     key=lambda new_bike_dict: new_bike_dict['dist'])
         return bike_result
 
     def get_obike_response(self):
@@ -56,7 +59,7 @@ class BikeAPI(BasicAPI):
             "scale": 3,
             "source": 1,
             "source-version": 50,
-            "token": "3e9133f0-a27b-11e7-882a-5937e108b29a"  # User token generated through mobile registration
+            "token": BasicAPI.api_key['Ofo']  # User token generated through mobile registration
         }
         session = requests.Session()
         session.headers.update(headers)

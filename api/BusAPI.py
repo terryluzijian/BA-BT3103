@@ -71,10 +71,10 @@ class BusAPI(BasicAPI):
                 'name': bus_dict['Description'],
                 'code': bus_dict['BusStopCode'],
                 'type': 'public bus',
-                'brand': 'Public'
+                'brand': 'public'
             } for bus_dict in public_bus_stops])
             bus_stops_nearby = sorted(
-                list(filter(lambda bus_new_dict: bus_new_dict['dist'] <= self.proximity_threshold,
+                list(filter(lambda bus_new_dict: bus_new_dict['dist'] <= self.search_distance,
                             map(lambda bus_dict:
                                 {
                                     'lat': bus_dict['lat'],
@@ -140,7 +140,7 @@ class BusAPI(BasicAPI):
                 return '-'
 
         headers = {
-            'AccountKey': '8LOiGaQeTXO97oC7KkSYHA=='
+            'AccountKey': BasicAPI.api_key['Public Taxi/Bus']
         }
         payload = {
             'BusStopCode': station_code,
