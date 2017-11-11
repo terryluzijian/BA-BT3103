@@ -1,6 +1,7 @@
 import boto.dynamodb
 import datetime
 import json
+import time
 from scripts.BikeAPI import BikeAPI
 from scripts.BusAPI import BusAPI
 from scripts.TaxiAPI import TaxiAPI
@@ -28,6 +29,7 @@ def api_integrate_handler(event, context):
 
     bike_result_concat = []
     for test_geo in test_geos:
+        time.sleep(1)
         bike_api = BikeAPI(test_geo[0], test_geo[1], search_distance=0.5)
         bike_result_concat.extend(bike_api.get_bike_result()['bike'])
 
@@ -62,6 +64,7 @@ def api_integrate_handler(event, context):
         table_item = table.new_item(hash_key=item['key'],
                                     range_key=item['timestamp'],
                                     attrs={
-                                        key: value for key, value in item.items() if key not in ['key', 'timestamp']
+                                        key: str(value) for key, value in item.items()
+                                        if key not in ['key', 'timestamp']
                                         })
         table_item.put()
