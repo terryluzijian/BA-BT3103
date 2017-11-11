@@ -1,5 +1,5 @@
 import requests
-from BasicAPI import BasicAPI
+from .BasicAPI import BasicAPI
 
 
 class TaxiAPI(BasicAPI):

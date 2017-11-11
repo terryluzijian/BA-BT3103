@@ -1,7 +1,7 @@
 import datetime
 import json
 import requests
-from BasicAPI import BasicAPI
+from .BasicAPI import BasicAPI
 
 
 class BusAPI(BasicAPI):
