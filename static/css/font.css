@@ -88,6 +88,10 @@ a {
     font-size: 1em;
 }
 
+a.nav-link.sign-in {
+    padding: 5px 5px;
+}
+
 .TextInput a {
     font-weight: 500;
     font-size: 0.9em;
@@ -157,5 +161,11 @@ footer * {
     input.input-button {
         font-size: 0.9em;
         width: 100px;
+    }
+    li.divider {
+        padding: 1.5px;
+    }
+    a.nav-link.sign-in {
+        padding: 1px 5px;
     }
 }

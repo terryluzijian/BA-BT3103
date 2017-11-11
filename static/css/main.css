@@ -6,8 +6,25 @@ html, body {
     z-index: -1;
 }
 
+body.light {
+    background-color: #F5F5F5;
+}
+
 a {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+nav.navbar.navbar-toggleable.navbar-default.light {
+    background-color: #F5F5F5;
+    box-shadow: 0 1px 20px 0 rgba(82,82,82,0.50);
+}
+
+nav.navbar.navbar-toggleable.navbar-default.light a.nav-link {
+    color: #2B667F;
+}
+
+nav.navbar.navbar-toggleable.navbar-default.light a.nav-link.on-focus {
+    color: #4494B6;
 }
 
 .card {
@@ -47,13 +64,17 @@ button.white-button {
     border-radius: 19px 19px 19px 19px;
 }
 
+button:focus {
+    outline: 0px;
+}
+
 li.divider {
     padding: 4px
 }
 
 nav.navbar {
     background-color: #2B667F;
-    padding: 4% 5%;
+    padding: 3% 5%;
 }
 
 .navbar .navbar-collapse {
@@ -67,8 +88,19 @@ span.navbar-toggler-icon {
     margin-top: 9.5px;
 }
 
+span.navbar-toggler-icon.dark {
+    background-image: url("../img/Menu%20Dark.png");
+    height: 41px;
+    width: 41px;
+    margin-top: 9.5px;
+}
+
 a.nav-link {
     color: #FFFFFF;
+}
+
+a.nav-link.on-focus {
+    color: #4494B6;
 }
 
 h1, p, h2{
@@ -157,7 +189,7 @@ img.upper-globe, img.lower-globe{
 
 footer {
     text-align: center;
-    padding: 50px 3% 50px 3%;
+    padding: 25px 3% 25px 3%;
     background-color: #E8E8E8;
 }
 
