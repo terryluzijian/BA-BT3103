@@ -128,8 +128,8 @@ class BusAPI(BasicAPI):
     def get_public_bus_data(station_code):
         def get_approximate_mins(time_stamp):
             try:
-                diff = ((datetime.datetime.strptime(time_stamp, '%Y-%m-%dT%H:%M:%S+08:00'))
-                        - datetime.datetime.now()).total_seconds() / 60
+                diff = datetime.datetime.strptime(time_stamp, '%Y-%m-%dT%H:%M:%S+08:00') - datetime.datetime.now()
+                diff = diff.total_seconds() / 60.0
                 if diff >= 1:
                     return '%d' % int(diff)
                 elif diff < 0:
