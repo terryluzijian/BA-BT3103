@@ -1,13 +1,11 @@
 <!doctype html>
-<!-- Destination Search for NUS Mobility Application-->
+<!-- Analytics for NUS Mobility Application-->
 <html>
 
 <head>
-    <title>NMA - Destination Search</title>
+    <title>NMA - Analytics</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet'/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
@@ -49,7 +47,7 @@
                     </svg>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link on-focus" href="./transport.html">Transport</a>
+                    <a class="nav-link" href="./transport.html">Transport</a>
                 </li>
                 <li class="divider">
                     <svg width="3px" height="3px" viewBox="0 0 3 3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -70,7 +68,7 @@
                     </svg>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./analytics.html">Analytics</a>
+                    <a class="nav-link on-focus" href="#">Analytics</a>
                 </li>
                 <li class="divider">
                     <svg width="3px" height="3px" viewBox="0 0 3 3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -90,7 +88,7 @@
                         </g>
                     </svg>
                 </li>
-                <li class="nav-item sign-in">
+                <li class="nav-item sign-in icon">
                     <a class="nav-link sign-in" href="./signin.html">
                         <img src="img/Avatar%20Dark.svg"/>
                     </a>
@@ -99,8 +97,7 @@
         </div>
     </nav>
 
-    <div id='map'></div>
-    <h3 id="demo" style="text-align: center; padding: 10px"></h3>
+    <iframe src="https://yuansy.shinyapps.io/taxiVis/" style="width: 100%; height: 600px; border-width: 0"></iframe>
 
     <footer>
         <a class="navbar-brand" href="#top-homepage" style="width: 20%; padding-bottom: 6px; padding-left: 10px">
@@ -119,18 +116,6 @@
             </a>
         </div>
     </footer>
-
-    <script>
-        var demo = document.getElementById("demo");
-        navigator.geolocation.getCurrentPosition(function(location) {
-            console.log(location.coords.latitude);
-            console.log(location.coords.longitude);
-            console.log(location.coords.accuracy);
-            demo.innerHTML = "   ";
-        });
-    </script>
-
-    <script src="js/map.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

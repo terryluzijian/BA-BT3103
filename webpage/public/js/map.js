@@ -1,8 +1,5 @@
-/**
- * Created by terry on 11/12/2017.
- */
-
 mapboxgl.accessToken = 'pk.eyJ1IjoidGVycnlsdXppamlhbiIsImEiOiJjajFpcWJsMHcwMXJ5MndvMHExNTVpcXM3In0.jBC1AkZcA08dnE018DIYrQ';
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v9',
@@ -13,3 +10,5 @@ var map = new mapboxgl.Map({
         [103.786345, 1.309276]
     ]
 });
+var nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'bottom-right');
