@@ -97,7 +97,7 @@
         </div>
     </nav>
 
-    <h3 id="demo" style="text-align: center; padding: 10px"></h3>
+    <iframe src="https://yuansy.shinyapps.io/taxiVis/" style="width: 100%; height: 600px; border-width: 0"></iframe>
 
     <footer>
         <a class="navbar-brand" href="#top-homepage" style="width: 20%; padding-bottom: 6px; padding-left: 10px">
@@ -116,16 +116,6 @@
             </a>
         </div>
     </footer>
-
-    <script>
-        var demo = document.getElementById("demo");
-        navigator.geolocation.getCurrentPosition(function(location) {
-            console.log(location.coords.latitude);
-            console.log(location.coords.longitude);
-            console.log(location.coords.accuracy);
-            demo.innerHTML = "Current Location: " + String(location.coords.latitude) + "," + String(location.coords.longitude);
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
