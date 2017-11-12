@@ -3,18 +3,21 @@
 <html>
 
 <head>
+
     <title>NMA - Destination Search</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/font.css">
+
 </head>
 
 <body class="light">
@@ -123,6 +126,11 @@
         </div>
     </footer>
 
+    <div id="root"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
     <script>
         var demo = document.getElementById("demo");
         navigator.geolocation.getCurrentPosition(function(location) {
@@ -132,11 +140,143 @@
         });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGVycnlsdXppamlhbiIsImEiOiJjajFpcWJsMHcwMXJ5MndvMHExNTVpcXM3In0.jBC1AkZcA08dnE018DIYrQ';
 
-    <script src="js/map.js"></script>
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v9',
+            zoom: 16,
+            center: [103.776587, 1.296644],
+            maxBounds: [
+                [103.766871, 1.289500],
+                [103.786345, 1.309276]
+            ]
+        });
+        var nav = new mapboxgl.NavigationControl();
+        map.addControl(nav, 'bottom-right');
+
+        map.on('load', function () {
+
+            var url = 'https://carvpx8wn6.execute-api.ap-southeast-1.amazonaws.com/v1/get-all-taxi?lat=1.296644&lon=103.776587';
+            $(document).ready(function () {
+                $.getJSON(url).then(data => {
+                    $.each(data.taxi.results, function(index) {
+                        var eachData = data.taxi.results[index];
+                        console.log(eachData);
+                        map.addLayer({
+                            "id": String(eachData.code),
+                            "type": "symbol",
+                            "source": {
+                                "type": "geojson",
+                                "data": {
+                                    "type": "FeatureCollection",
+                                    "features": [{
+                                        "type": "Feature",
+                                        "geometry": {
+                                            "type": "Point",
+                                            "coordinates": [eachData.lon, eachData.lat]
+                                        },
+                                        "properties": {
+                                            "title": "",
+                                            "icon": "car"
+                                        }
+                                    }]
+                                }
+                            },
+                            "layout": {
+                                "icon-image": "{icon}-15",
+                                "text-field": "{title}",
+                                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                                "text-offset": [0, 0.6],
+                                "text-anchor": "top"
+                            }
+                        });
+                    });
+                });
+
+                var url2 = 'https://carvpx8wn6.execute-api.ap-southeast-1.amazonaws.com/v1/get-all-bikes?lat=1.296644&lon=103.776587';
+                $(document).ready(function () {
+                    $.getJSON(url2).then(data => {
+                        $.each(data.bike.results, function (index) {
+                            var eachData = data.bike.results[index];
+                            console.log(eachData);
+                            map.addLayer({
+                                "id": String(eachData.code),
+                                "type": "symbol",
+                                "source": {
+                                    "type": "geojson",
+                                    "data": {
+                                        "type": "FeatureCollection",
+                                        "features": [{
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [eachData.lon, eachData.lat]
+                                            },
+                                            "properties": {
+                                                "title": "",
+                                                "icon": "bicycle"
+                                            }
+                                        }]
+                                    }
+                                },
+                                "layout": {
+                                    "icon-image": "{icon}-15",
+                                    "text-field": "{title}",
+                                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                                    "text-offset": [0, 0.6],
+                                    "text-anchor": "top"
+                                }
+                            });
+                        });
+                    });
+                });
+
+                var url3 = 'https://carvpx8wn6.execute-api.ap-southeast-1.amazonaws.com/v1/get-all-buses?lat=1.296644&lon=103.776587';
+                $(document).ready(function () {
+                    $.getJSON(url3).then(data => {
+                        $.each(data.bus.results, function (index) {
+                            var eachData = data.bus.results[index];
+                            console.log(eachData);
+                            map.addLayer({
+                                "id": String(eachData.code),
+                                "type": "symbol",
+                                "source": {
+                                    "type": "geojson",
+                                    "data": {
+                                        "type": "FeatureCollection",
+                                        "features": [{
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [eachData.lon, eachData.lat]
+                                            },
+                                            "properties": {
+                                                "title": "",
+                                                "icon": "bus"
+                                            }
+                                        }]
+                                    }
+                                },
+                                "layout": {
+                                    "icon-image": "{icon}-15",
+                                    "text-field": "{title}",
+                                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                                    "text-offset": [0, 0.6],
+                                    "text-anchor": "top"
+                                }
+                            });
+                        });
+                    });
+                });
+
+            });
+
+        });
+
+    </script>
+
     <script src="js/aws-cognito-sdk.min.js"></script>
     <script src="js/amazon-cognito-identity.min.js"></script>
     <script src="js/config.js"></script>
