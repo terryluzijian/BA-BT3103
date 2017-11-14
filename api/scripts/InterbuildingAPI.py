@@ -2,6 +2,11 @@ import json
 from BasicAPI import BasicAPI
 
 
+def lambda_handler(event, context):
+    building = InterbuildingAPI(event['lat'], event['lon'])
+    return building.get_buildings_nearby()
+
+
 class InterbuildingAPI(BasicAPI):
 
     type_name = 'interbuilding'
@@ -14,6 +19,7 @@ class InterbuildingAPI(BasicAPI):
         super(InterbuildingAPI, self).__init__(user_lat, user_lon, search_distance)
         self.buildings = []
         self.buildings_nearby = []
+        self.search_distance = search_distance
         self.get_buildings()
         self.get_buildings_nearby()
 
@@ -42,12 +48,18 @@ class InterbuildingAPI(BasicAPI):
                             self.buildings))),
             key=lambda building_final_dict: building_final_dict['dist'])
         self.buildings_nearby = buildings_nearby
+        return {'buildings': {'search_distance': self.search_distance,
+                              'results': buildings_nearby[0:4]}}  # Subset of nearest 3
+
 
     def get_connected_buildings_nearby(self):  # Only return as [{index of nearby_building: [index of its connected buildings ]}]
         if self.buildings_nearby == []:    # need to call index_to_building(index) to return the building object
             self.get_buildings_nearby()
-        connected_buildings_nearby = [{building_dict['index']:self.get_connected_buildings(building_dict['index'])} for building_dict in self.buildings_nearby]
+        connected_buildings_nearby = sorted([{building_dict['index']:self.get_connected_buildings(building_dict['index'])} for building_dict in self.buildings_nearby])
         return connected_buildings_nearby
+
+    def get_building_connection_nearby(self):
+        pass
 
     def get_connected_buildings(self, building_index):
         return [i for i in range(len(self.building_shortest_path_matrix[building_index])) if self.building_shortest_path_matrix[building_index][i] != 0]
