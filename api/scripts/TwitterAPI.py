@@ -37,7 +37,7 @@ class TwitterAPI(BasicAPI):
             dct['time'] = t.created_at
             result.append(dct)
         self.latest_twitter = result
-        self.get_twitter_tag(self.latest_twitter)
+        self.get_twitter_tag()
         return {'tweets': {'search_distance': self.search_distance,
                            'results': self.latest_twitter
                            }
