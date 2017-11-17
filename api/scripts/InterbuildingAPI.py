@@ -10,10 +10,10 @@ def lambda_handler(event, context):
 class InterbuildingAPI(BasicAPI):
 
     type_name = 'interbuilding'
-    building_connection = json.load(open('./data/BUILDING_CONNECTION.json', 'r'))
-    building_geocode = json.load(open('./data/BUILDING_GEOCODE.json', 'r'))
-    building_distance = json.load(open('./data/BUILDING_DISTANCE.json', 'r'))
-    building_shortest_path_matrix = json.load(open('./data/BUILDING_SHORTEST_PATH_MATRIX.json', 'r'))
+    building_connection = json.load(open('data/BUILDING_CONNECTION.json', 'r'))
+    building_geocode = json.load(open('data/BUILDING_GEOCODE.json', 'r'))
+    building_distance = json.load(open('.ata/BUILDING_DISTANCE.json', 'r'))
+    building_shortest_path_matrix = json.load(open('data/BUILDING_SHORTEST_PATH_MATRIX.json', 'r'))
 
     def __init__(self, user_lat, user_lon, search_distance=BasicAPI.proximity_threshold):
         super(InterbuildingAPI, self).__init__(user_lat, user_lon, search_distance)

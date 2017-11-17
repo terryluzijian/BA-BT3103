@@ -1,4 +1,9 @@
 [
 	{"Public Taxi/Bus": "8LOiGaQeTXO97oC7KkSYHA=="},
-	{"Ofo": "3e9133f0-a27b-11e7-882a-5937e108b29a"} 
+	{"Ofo": "3e9133f0-a27b-11e7-882a-5937e108b29a"},
+    {"Twitter": {"ACCESS_TOKEN": "2675454162-YfUGh6ff2y1qmDTXPrjlJCT2QckIQ7O8X9WeBLe", 
+                "CONSUMER_KEY": "HAHth0DpaQpdHk15i9Xx6l3f8",
+                "CONSUMER_SECRET": "xXivCvBS6DsvNg38aAIWQRye2XCV7dLOzWJKXGR07wXotHKP8U",
+                "ACCESS_SECRET": "2Aq398sbkCXKXkLZWBNoWSGkIXmsZP0yQquEXxh6nm2HL"}
+    }
 ]
