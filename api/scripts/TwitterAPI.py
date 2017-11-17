@@ -38,7 +38,10 @@ class TwitterAPI(BasicAPI):
             result.append(dct)
         self.latest_twitter = result
         self.get_twitter_tag(self.latest_twitter)
-        return self.latest_twitter
+        return {'tweets': {'search_distance': self.search_distance,
+                           'results': self.latest_twitter
+                           }
+                }
 
     def get_twitter_tag(self):
         for t in self.latest_twitter:
