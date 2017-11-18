@@ -48,7 +48,7 @@ def handle_bus_stop(event, context):
 
     for past_hour in range(1, 13):
         past = str(sg_time_now - datetime.timedelta(hours=past_hour))[:13]
-        this_item = table.query(key__eq=event['id'], timestamp__beginswith=past,
+        this_item = table.query(key__eq=' '.join([event['type'], event['brand'], event['code']]), timestamp__beginswith=past,
                                 limit=2)
         for item in this_item:
             bus_arrival_list.append(traverse_bus_arrival(item['arrival']))
@@ -92,7 +92,7 @@ def handle_bike_activity(event, context):
 
     usage = [0] * 12
     timestamp = []
-    this_item = table.query(key__eq=event['id'], limit=12)
+    this_item = table.query(key__eq=' '.join([event['type'], event['brand'], event['code']]), limit=12)
     curr_index = 0
     curr_lat = 0
     curr_lon = 0
