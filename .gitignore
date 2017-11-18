@@ -90,3 +90,9 @@ ENV/
 .ropeproject
 
 *.py___jb_tmp___
+
+# npm
+node_modules/
+package-lock.json
+
+package.json
