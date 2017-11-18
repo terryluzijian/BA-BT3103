@@ -52,10 +52,10 @@ class InterbuildingAPI(BasicAPI):
     def get_connected_buildings_nearby(self):  # Only return as [{index of nearby_building: [index of its connected buildings ]}]
         if self.buildings_nearby == []:    # need to call index_to_building(index) to return the building object
             self.get_buildings_nearby()
-        nearest_building = self.buildings_nearby[0]
-        connected_buildings_nearby = sorted([{nearest_building['index']:self.get_connected_buildings(nearest_building['index'])}])[0]
+        nearest_building = self.buildings_nearby[:5]  # Limit to 5 result
+        connected_buildings_nearby = [sorted([{building['index']:self.get_connected_buildings(building['index'])}])[0] for building in nearest_building]
         return {'buildings': {'search_distance': self.search_distance,
-                              'results': [list(map(self.index_to_building, i)) for i in map(lambda x: self.building_shortest_path_matrix[list(connected_buildings_nearby.keys())[0]][x]['path'], list(connected_buildings_nearby.values())[0])]}}
+                              'results': [[list(map(self.index_to_building, i)) for i in map(lambda x: self.building_shortest_path_matrix[list(k_connected_buildings_nearby.keys())[0]][x]['path'], list(k_connected_buildings_nearby.values())[0])] for k_connected_buildings_nearby in connected_buildings_nearby]}}
 
     def get_building_connection_nearby(self):
         pass
