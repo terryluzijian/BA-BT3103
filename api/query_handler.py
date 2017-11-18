@@ -55,11 +55,13 @@ def handle_bus_stop(event, context):
 
     final_lst = bus_arrival_list[::-1]
     traverse_dict = {}
-    for key in final_lst[0].keys():
-        traverse_dict[key] = []
-    for element in final_lst:
-        for key in element.keys():
-            traverse_dict[key].append(element[key])
+
+    if len(final_lst) > 0:
+        for key in final_lst[0].keys():
+            traverse_dict[key] = []
+        for element in final_lst:
+            for key in element.keys():
+                traverse_dict[key].append(element[key])
 
     return traverse_dict
 
