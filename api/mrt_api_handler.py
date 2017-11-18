@@ -1,6 +1,6 @@
 import re
 import requests
-from lxml import html
+from bs4 import BeautifulSoup
 from queue import Queue
 
 # Currently only for Kent Ridge Station (CKRG)
@@ -16,8 +16,8 @@ def mrt_api_handler(event, context):
         'Content-Type' : 'application/x-www-form-urlencoded'
     }
     site_request = site_session.get('http://trainarrivalweb.smrt.com.sg/default.aspx', headers=request_header)
-    html_parsed = html.fromstring(str(site_request.content))
-    view_state = html_parsed.xpath('//*[@id="__VIEWSTATE"]/@value')[0]
+    soup = BeautifulSoup(str(site_request.content), 'html.parser')
+    view_state = soup.find(attrs={'id': '__VIEWSTATE'})['value']
 
     form_data = {
         '__VIEWSTATE': view_state,
@@ -25,9 +25,9 @@ def mrt_api_handler(event, context):
         'ddlStation': 'CKRG',
     }
     another_request = site_session.post('http://trainarrivalweb.smrt.com.sg/default.aspx', headers=request_header, data=form_data)
-    final_html_parsed = html.fromstring(another_request.content)
+    soup = BeautifulSoup(another_request.content, 'html.parser')
 
-    arrival = final_html_parsed.xpath('//td/text()')
+    arrival = list(map(lambda x: x.text, soup.findAll('td', text=True)[1:]))
     arrival_dict = {}
     arrival_queue = Queue()
 
