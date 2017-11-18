@@ -55,7 +55,7 @@ class InterbuildingAPI(BasicAPI):
         nearest_building = self.buildings_nearby[0]
         connected_buildings_nearby = sorted([{nearest_building['index']:self.get_connected_buildings(nearest_building['index'])}])[0]
         return {'buildings': {'search_distance': self.search_distance,
-                              'results': [list(map(self.index_to_building, i)) for i in map(lambda x: self.building_shortest_path_matrix[connected_buildings_nearby.keys()[0]][x]['path'], connected_buildings_nearby.values()[0])]}}
+                              'results': [list(map(self.index_to_building, i)) for i in map(lambda x: self.building_shortest_path_matrix[list(connected_buildings_nearby.keys())[0]][x]['path'], list(connected_buildings_nearby.values())[0])]}}
 
     def get_building_connection_nearby(self):
         pass
