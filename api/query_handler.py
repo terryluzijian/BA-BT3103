@@ -45,9 +45,12 @@ def traverse_bus_arrival(arrival_list):
 def handle_bus_stop(event, context):
 
     bus_arrival_list = []
+    past_time_list = []
 
     for past_hour in range(1, 13):
-        past = str(sg_time_now - datetime.timedelta(hours=past_hour))[:13]
+        past_time_stamp = sg_time_now - datetime.timedelta(hours=past_hour)
+        past = str(past_time_stamp)[:13]
+        past_time_list.append('%d:00' % past_time_stamp.hour)
         this_item = table.query(key__eq=' '.join([event['type'], event['brand'], event['code']]), timestamp__beginswith=past,
                                 limit=2)
         for item in this_item:
@@ -63,31 +66,37 @@ def handle_bus_stop(event, context):
             for key in element.keys():
                 traverse_dict[key].append(element[key])
 
-    return traverse_dict
+    return {key: list(zip(past_time_list[::-1], value)) for key, value in traverse_dict.items()}
 
 
 def handle_taxi_number(event, context):
 
     taxi_count = [0] * 12
+    past_time_list = []
     for past_hour in range(1, 13):
-        past = str(sg_time_now - datetime.timedelta(hours=past_hour))[:13]
+        past_time_stamp = sg_time_now - datetime.timedelta(hours=past_hour)
+        past = str(past_time_stamp)[:13]
+        past_time_list.append('%d:00' % past_time_stamp.hour)
         this_item = table.scan(key__beginswith='taxi', timestamp__beginswith=past, type__eq='taxi')
         for item in this_item:
             taxi_count[past_hour - 1] += 1
 
-    return taxi_count[::-1]
+    return list(zip(past_time_list[::-1], taxi_count[::-1]))
 
 
 def handle_ofo_bike_number(event, context):
 
     bike_count = [0] * 12
+    past_time_list = []
     for past_hour in range(1, 13):
-        past = str(sg_time_now - datetime.timedelta(hours=past_hour))[:13]
+        past_time_stamp = sg_time_now - datetime.timedelta(hours=past_hour)
+        past = str(past_time_stamp)[:13]
+        past_time_list.append('%d:00' % past_time_stamp.hour)
         this_item = table.scan(key__beginswith='bike', timestamp__beginswith=past, brand__eq='Ofo', type__eq='bike')
         for item in this_item:
             bike_count[past_hour - 1] += 1
 
-    return bike_count[::-1]
+    return list(zip(past_time_list[::-1], bike_count[::-1]))
 
 
 def handle_bike_activity(event, context):
@@ -107,7 +116,7 @@ def handle_bike_activity(event, context):
                     usage[curr_index] += 1
         curr_lat = item['lat']
         curr_lon = item['lon']
-        timestamp.append([usage[curr_index], item['timestamp']])
+        timestamp.append([item['timestamp'], usage[curr_index]])
         curr_index += 1
 
     return timestamp[::-1]
