@@ -1,0 +1,12 @@
+name: taxiVis
+title: taxiVis
+username:
+account: yuansy
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 230243
+bundleId: 1071227
+url: https://yuansy.shinyapps.io/taxiVis/
+when: 1510491318.92523
+asMultiple: FALSE
+asStatic: FALSE
