@@ -1,0 +1,142 @@
+/*
+NMA Colors
+*/
+$default-white: #FFFFFF;
+$nma-main-green: #2B667F;
+$nma-main-green-light: #4E8EA9;
+$nma-main-green-hover: #62B2D4;
+$nma-main-white: #E9ECEF;
+$nma-main-grey: #E8E8E8;
+$nma-main-grey-dark: #838383;
+$nma-main-grey-medium: #9C9C9C;
+$nma-main-grey-light: #F5F5F5;
+
+/*
+Screen Specs
+*/
+$mobile-size: 479px;
+$tablet-size: 766px;
+$header-anchor-font-size: 0.9em;
+
+@mixin translateY($e) {
+
+  -webkit-transform: translateY($e);
+  -moz-transform: translateY($e);
+  transform: translateY($e);
+
+}
+
+@mixin transition($e) {
+
+  -webkit-transition: $e;
+  -moz-transition: $e;
+  transition: $e;
+
+}
+
+@keyframes ripple {
+
+  0% {
+    bottom: 10px;
+    transform: scale(0.1, 0.1);
+    opacity: 0
+  }
+  50% {
+    bottom: 10px;
+    opacity: 0.2
+  }
+  100% {
+    bottom: 10px;
+    transform: scale(5, 5);
+    opacity: 0
+  }
+
+}
+
+body {
+
+  font-family: 'Roboto', 'Open Sans', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  width: 100%;
+  background-color: $nma-main-white;
+  z-index: -1;
+
+}
+
+a {
+
+  font-size: $header-anchor-font-size;
+  text-decoration: none;
+  font-weight: 500;
+  color: $default-white;
+  @include transition(.3s ease-in-out);
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+    color: $nma-main-green-hover;
+    @include transition(.3s ease-in-out);
+  }
+
+}
+
+header {
+
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 80px;
+
+  .logo {
+
+    position: absolute;
+    top: 50%; left: 35px;
+    @include translateY(-50%);
+
+  }
+
+  nav,
+  nav ul,
+  nav ul li {
+
+    margin: 0;
+    padding: 0;
+
+  }
+
+  nav {
+
+    position: absolute;
+    top: 50%; right: 35px;
+    @include translateY(-50%);
+
+    ul li {
+
+      list-style-type: none;
+      display: inline-block;
+      margin-right: 20px;
+
+      &.last {
+        margin: 0;
+      }
+
+      a {
+        font-size: $header-anchor-font-size;
+        line-height: normal;
+      }
+
+    }
+
+  }
+
+}
+
+.jumbotron.jumbotron-fluid.text-center {
+
+  background-color: $nma-main-green;
+  color: $default-white;
+  padding: 5% 0;
+  margin: 0;
+
+}

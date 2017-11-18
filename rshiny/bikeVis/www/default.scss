@@ -1,0 +1,63 @@
+@import "_config.scss";
+
+header.dark {
+
+  background-color: $nma-main-green;
+  color: $default-white;
+
+}
+
+header.white {
+
+  /*Changed*/
+  background-color: $nma-main-grey-light;
+  color: $nma-main-green;
+  /*Extra*/
+  box-shadow: 0 1px 20px 0 rgba(82,82,82,0.50);
+  z-index: 1;
+
+  .logo {
+
+    /*Extra (DELETE WHEN ACTUAL LOGO IS AVAILABLE)*/
+    a {
+      font-size: $header-anchor-font-size;
+      line-height: normal;
+      color: $nma-main-green;
+      &:hover {
+        color: $nma-main-green-hover;
+        @include transition(.3s ease-in-out);
+      }
+    }
+
+  }
+
+  nav {
+
+      /*Changed*/
+    a {
+      font-size: $header-anchor-font-size;
+      line-height: normal;
+      color: $nma-main-green;
+      &:hover {
+        color: $nma-main-green-hover;
+        @include transition(.3s ease-in-out);
+      }
+    }
+
+  }
+
+}
+
+footer {
+
+  display: block;
+  position: relative;
+  width: 100%;
+  background-color: $nma-main-grey;
+  font-family: 'Open Sans', 'Roboto', sans-serif;
+  font-weight: 600;
+  color: $nma-main-green;
+  text-align: center;
+  padding: 2%;
+
+}
