@@ -1,0 +1,12 @@
+name: bikeVis
+title: bikeVis
+username:
+account: yuansy
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 234308
+bundleId: 1071322
+url: https://yuansy.shinyapps.io/bikeVis/
+when: 1510498294.52884
+asMultiple: FALSE
+asStatic: FALSE

@@ -4,15 +4,14 @@ library(httr)
 library(jsonlite)
 library(geosphere)
 
-buildinginfo <- fromJSON("https://nextbus.comfortdelgro.com.sg/eventservice.svc/BusStops")
-buildinglocation <- buildinginfo$BusStopsResult$busstops
+building <- fromJSON("data/building.json")
 
 ui <- fluidPage(
   titlePanel("BIKE Avaibility"),
   sidebarLayout(
     sidebarPanel(
       radioButtons("radio", "Type of bike", choices=c("obike","mobike","both"), selected="both"),
-      selectInput("select", "Find the nearest bike from", choices=buildinglocation$caption),
+      selectInput("select", "Find the nearest bike from", choices=building$name),
       sliderInput("slider", "Whithin the range of (meters)", min = 0, max = 1000, value = 300)
     ),
     mainPanel(
@@ -43,8 +42,8 @@ server <- function(input, output) {
     for (n in 1:nrow(bikeloc)){
       long1 <- bikeloc$longitude[n]
       lat1 <- bikeloc$latitude[n]
-      long2 <- buildinglocation[buildinglocation$caption==input$select,]$longitude[1]
-      lat2 <- buildinglocation[buildinglocation$caption==input$select,]$latitude[1]
+      long2 <- building[building$name==input$select,]$lon[1]
+      lat2 <- building[building$name==input$select,]$lat[1]
       bikeloc$distance[n] <- distGeo(c(long1,lat1),c(long2,lat2))
     }
     temp1 <- bikeloc[, c("id","bike","distance")][bikeloc$distance<input$slider,]
@@ -83,8 +82,8 @@ server <- function(input, output) {
         icon=icons(iconUrl=ifelse(filteredbikeloc()$bike=="obike","obikemarker.png","mobikemarker.png"), iconWidth = 50, iconHeight = 50, iconAnchorX = 25, iconAnchorY = 50)
         ) %>%
       clearShapes() %>%
-      addCircleMarkers(data=buildinglocation[buildinglocation$caption==input$select,], ~longitude, ~latitude, stroke = FALSE, fillOpacity = 0.5) %>%
-      addCircles(data=buildinglocation[buildinglocation$caption==input$select,], ~longitude, ~latitude, weight=0, radius=input$slider)
+      addCircleMarkers(data=building[building$name==input$select,], ~lon, ~lat, stroke = FALSE, fillOpacity = 0.5) %>%
+      addCircles(data=building[building$name==input$select,], ~lon, ~lat, weight=0, radius=input$slider)
   })
 }
 
