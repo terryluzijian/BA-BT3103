@@ -18,13 +18,15 @@ ui <- fluidPage(
   ),
   absolutePanel(class = 'abs', fixed = TRUE,
     top = 60, left = "auto", right = 10,
-    width = 120, height = "auto",
+    width = 140, height = "auto",
     radioButtons("radio", "Type of bike", choices=c("obike","mobike","both"), selected="both", ),
-    selectInput("select", "Find the nearest bike from", choices=buildinglocation$caption,  ),
+    selectInput("select", "Find the nearest bike from", choices=buildinglocation$caption,   ),
     tags$style(type='text/css', '.selectize-input {min-height: 0px;}',
                '.selectize-input.items.full.has-options.has-items {padding-bottom: 0px;padding-top: 0px;}',
                '.irs-min, .irs-max {background:#FFF;}',
-               '.che.checkbox.input[type=checkbox] {position: unset}'),
+               '.che.checkbox.input[type=checkbox] {position: unset;}',
+               '.checkbox.input[type=checkbox], .checkbox-inline.input[type=checkbox], .radio input[type=radio], .radio-inline.input[type=radio]) {position: unset;}'
+    ),
     sliderInput("slider", "Whithin the range of (meters)", min = 0, max = 1000, value = 300)
   )
 )

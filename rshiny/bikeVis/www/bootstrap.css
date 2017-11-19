@@ -114,6 +114,11 @@ div.abs {
   }
 }
 
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+  position: relative !important;
+  margin-left: -10px !important;
+}
+
 *,
 *::before,
 *::after {
