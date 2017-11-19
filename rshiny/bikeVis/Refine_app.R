@@ -13,7 +13,7 @@ ui <- fluidPage(
   mainPanel(
     leafletOutput("map", width = "100%"),
     tableOutput("table"),
-    tags$div(`class` = 'col'),
+    tags$div('class' = 'col'),
     tags$style(type='text/css','.table.element.style {width: 90%;}')
   ),
   absolutePanel(class = 'abs', fixed = TRUE,
