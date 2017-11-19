@@ -10,6 +10,8 @@ from textblob.classifiers import NaiveBayesClassifier
 from requests_oauthlib import OAuth1
 from BasicAPI import BasicAPI
 
+nltk.data.path.append("/var/task/nltk_data")
+
 
 def lambda_handler(event, context):
     twitter = TwitterAPI(event['lat'], event['lon'])
