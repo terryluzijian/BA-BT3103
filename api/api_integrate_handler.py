@@ -17,7 +17,7 @@ table = conn.get_table('PublicTransport')
 def api_integrate_handler(event, context):
 
     test_geo = (1.296644, 103.776587)  # Center
-    range_in_km = 1.5
+    range_in_km = 2.5
 
     # Get bikes
     test_geos = [  # Points around
