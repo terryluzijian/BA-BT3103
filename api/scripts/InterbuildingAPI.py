@@ -53,9 +53,24 @@ class InterbuildingAPI(BasicAPI):
         if self.buildings_nearby == []:    # need to call index_to_building(index) to return the building object
             self.get_buildings_nearby()
         nearest_building = self.buildings_nearby[:5]  # Limit to 5 result
-        connected_buildings_nearby = [sorted([{building['index']:self.get_connected_buildings(building['index'])}])[0] for building in nearest_building]
+        def empty_list_handler(list):
+            return None if list == [] else list
+#         print(nearest_building)
+        if nearest_building == []:
+            return {'buildings': {'search_distance': self.search_distance,
+                              'results':None}}
+        connected_buildings_nearby = [sorted([{building['index']:empty_list_handler(self.get_connected_buildings(building['index']))}])[0] for building in nearest_building]
+        results = []
+        for i in connected_buildings_nearby:
+            rst = None
+            if list(i.values())[0] is not None:
+                rst = []
+                for j in list(i.values())[0]:
+                    rst.append(list(map(lambda x: x[0], self.building_shortest_path_matrix[(list(i.keys())[0])][j]['nodes'])))
+            if rst is not None:
+                results.append(rst)
         return {'buildings': {'search_distance': self.search_distance,
-                              'results': [[list(map(self.index_to_building, i)) for i in map(lambda x: self.building_shortest_path_matrix[list(k_connected_buildings_nearby.keys())[0]][x]['path'], list(k_connected_buildings_nearby.values())[0])] for k_connected_buildings_nearby in connected_buildings_nearby]}}
+                              'results':results}}
 
     def get_building_connection_nearby(self):
         pass
