@@ -96,3 +96,4 @@ node_modules/
 package-lock.json
 
 package.json
+api/data/AWS_KEY.json

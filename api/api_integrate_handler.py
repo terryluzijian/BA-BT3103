@@ -7,15 +7,14 @@ from scripts.BusAPI import BusAPI
 from scripts.TaxiAPI import TaxiAPI
 
 key_dict = {key: value for sub_dict in json.load(open('data/AWS_KEY.json', 'r')) for key, value in sub_dict.items()}
-
 conn = boto.dynamodb.connect_to_region('ap-southeast-1',
                                        aws_access_key_id=key_dict['aws_access_key_id'],
                                        aws_secret_access_key=key_dict['aws_secret_access_key'])
 table = conn.get_table('PublicTransport')
+count_table = conn.get_table('PublicTransportCount')
 
 
 def api_integrate_handler(event, context):
-
     test_geo = (1.296644, 103.776587)  # Center
     range_in_km = 2.5
 
@@ -48,6 +47,7 @@ def api_integrate_handler(event, context):
             })
 
     bike_final_result_concat = sorted(bike_final_result_concat, key=lambda new_bike_dict: new_bike_dict['dist'])
+    ofo_bike = [bike_dict for bike_dict in bike_final_result_concat if bike_dict['brand'] == 'Ofo']
 
     # Get taxi and bus
     taxi_api = TaxiAPI(test_geo[0], test_geo[1], range_in_km)
@@ -56,6 +56,11 @@ def api_integrate_handler(event, context):
     bus_final_result = bus_api.get_bus_result()['bus']
 
     final_list = bike_final_result_concat + taxi_final_result + bus_final_result
+    final_list_count = {
+        'Ofo': len(ofo_bike),
+        'Taxi': len(taxi_final_result)
+    }
+
     for final_dict in final_list:
         final_dict.update({'timestamp': str(datetime.datetime.utcnow() + datetime.timedelta(hours=8))})
         final_dict.update({'key': '%s %s %s' % (final_dict['type'], final_dict['brand'], final_dict['code'])})
@@ -66,5 +71,13 @@ def api_integrate_handler(event, context):
                                     attrs={
                                         key: str(value) for key, value in item.items()
                                         if key not in ['key', 'timestamp']
-                                        })
+                                    })
+        table_item.put()
+
+    for item in ['Ofo', 'Taxi']:
+        table_item = count_table.new_item(hash_key=item,
+                                          range_key=str(datetime.datetime.utcnow() + datetime.timedelta(hours=8)),
+                                          attrs={
+                                              'count': final_list_count[item]
+                                          })
         table_item.put()

@@ -9,6 +9,7 @@ conn = boto.dynamodb2.connect_to_region('ap-southeast-1',
                                         aws_access_key_id=key_dict['aws_access_key_id'],
                                         aws_secret_access_key=key_dict['aws_secret_access_key'])
 table = Table('PublicTransport', connection=conn)
+count_table = Table('PublicTransportCount', connection=conn)
 sg_time_now = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
 
 
@@ -77,9 +78,9 @@ def handle_taxi_number(event, context):
         past_time_stamp = sg_time_now - datetime.timedelta(hours=past_hour)
         past = str(past_time_stamp)[:13]
         past_time_list.append('%d:00' % past_time_stamp.hour)
-        this_item = table.scan(key__beginswith='taxi', timestamp__beginswith=past, type__eq='taxi')
+        this_item = count_table.query(key__eq='Taxi', timestamp__beginswith=past)
         for item in this_item:
-            taxi_count[past_hour - 1] += 1
+            taxi_count[past_hour - 1] = int(item['count'])
 
     return list(zip(past_time_list[::-1], taxi_count[::-1]))
 
@@ -92,9 +93,9 @@ def handle_ofo_bike_number(event, context):
         past_time_stamp = sg_time_now - datetime.timedelta(hours=past_hour)
         past = str(past_time_stamp)[:13]
         past_time_list.append('%d:00' % past_time_stamp.hour)
-        this_item = table.scan(key__beginswith='bike', timestamp__beginswith=past, brand__eq='Ofo', type__eq='bike')
+        this_item = count_table.query(key__eq='Ofo', timestamp__beginswith=past)
         for item in this_item:
-            bike_count[past_hour - 1] += 1
+            bike_count[past_hour - 1] = int(item['count'])
 
     return list(zip(past_time_list[::-1], bike_count[::-1]))
 
